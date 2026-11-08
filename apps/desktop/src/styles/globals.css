@@ -1,0 +1,489 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.375rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    @apply bg-base-950 text-base-100;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer base {
+  :root {
+    --base-50: 24 15% 96%;
+    --base-100: 24 15% 92%;
+    --base-200: 24 13% 86%;
+    --base-300: 24 11% 76%;
+    --base-400: 24 9% 64%;
+    --base-500: 24 8% 53%;
+    --base-600: 24 7% 43%;
+    --base-700: 24 8% 33%;
+    --base-800: 24 9% 23%;
+    --base-900: 24 10% 13%;
+    --base-950: 24 12% 8%;
+
+    --primary-50: 239 100% 97%;
+    --primary-100: 239 100% 93%;
+    --primary-200: 239 100% 85%;
+    --primary-300: 239 100% 73%;
+    --primary-400: 239 100% 58%;
+    --primary-500: 239 100% 50%;
+    --primary-600: 239 100% 45%;
+    --primary-700: 239 100% 38%;
+    --primary-800: 239 100% 30%;
+    --primary-900: 239 100% 25%;
+    --primary-950: 239 100% 12%;
+
+    --success-50: 138 100% 97%;
+    --success-100: 138 100% 93%;
+    --success-200: 138 100% 85%;
+    --success-300: 138 100% 73%;
+    --success-400: 138 100% 58%;
+    --success-500: 138 100% 45%;
+    --success-600: 138 100% 38%;
+    --success-700: 138 100% 30%;
+    --success-800: 138 100% 22%;
+    --success-900: 138 100% 15%;
+    --success-950: 138 100% 8%;
+
+    --warning-50: 48 100% 97%;
+    --warning-100: 48 100% 93%;
+    --warning-200: 48 100% 85%;
+    --warning-300: 48 100% 73%;
+    --warning-400: 48 100% 58%;
+    --warning-500: 48 100% 45%;
+    --warning-600: 48 100% 38%;
+    --warning-700: 48 100% 30%;
+    --warning-800: 48 100% 22%;
+    --warning-900: 48 100% 15%;
+    --warning-950: 48 100% 8%;
+
+    --danger-50: 0 100% 97%;
+    --danger-100: 0 100% 93%;
+    --danger-200: 0 100% 85%;
+    --danger-300: 0 100% 73%;
+    --danger-400: 0 100% 58%;
+    --danger-500: 0 100% 45%;
+    --danger-600: 0 100% 38%;
+    --danger-700: 0 100% 30%;
+    --danger-800: 0 100% 22%;
+    --danger-900: 0 100% 15%;
+    --danger-950: 0 100% 8%;
+
+    --info-50: 189 100% 97%;
+    --info-100: 189 100% 93%;
+    --info-200: 189 100% 85%;
+    --info-300: 189 100% 73%;
+    --info-400: 189 100% 58%;
+    --info-500: 189 100% 45%;
+    --info-600: 189 100% 38%;
+    --info-700: 189 100% 30%;
+    --info-800: 189 100% 22%;
+    --info-900: 189 100% 15%;
+    --info-950: 189 100% 8%;
+  }
+
+  .dark {
+    --base-50: 24 15% 96%;
+    --base-100: 24 15% 92%;
+    --base-200: 24 13% 86%;
+    --base-300: 24 11% 76%;
+    --base-400: 24 9% 64%;
+    --base-500: 24 8% 53%;
+    --base-600: 24 7% 43%;
+    --base-700: 24 8% 33%;
+    --base-800: 24 9% 23%;
+    --base-900: 24 10% 13%;
+    --base-950: 24 12% 8%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --base-50: 24 15% 96%;
+      --base-100: 24 15% 92%;
+      --base-200: 24 13% 86%;
+      --base-300: 24 11% 76%;
+      --base-400: 24 9% 64%;
+      --base-500: 24 8% 53%;
+      --base-600: 24 7% 43%;
+      --base-700: 24 8% 33%;
+      --base-800: 24 9% 23%;
+      --base-900: 24 10% 13%;
+      --base-950: 24 12% 8%;
+    }
+  }
+}
+
+@layer components {
+  .terminal-layout {
+    @apply h-screen w-full flex flex-col bg-base-950 text-base-100 font-sans antialiased;
+  }
+
+  .terminal-header {
+    @apply h-10 px-4 flex items-center justify-between bg-base-900 border-b border-base-800 select-none;
+  }
+
+  .terminal-main {
+    @apply flex-1 overflow-hidden relative;
+  }
+
+  .terminal-grid {
+    @apply h-full w-full grid gap-1 p-1;
+  }
+
+  .terminal-statusbar {
+    @apply h-7 px-4 flex items-center justify-between bg-base-900 border-t border-base-800 select-none text-xs;
+  }
+
+  .panel {
+    @apply relative flex flex-col bg-base-900 border border-base-700 rounded-lg overflow-hidden;
+  }
+
+  .panel-active {
+    @apply border-primary-500/50 shadow-lg shadow-primary-500/10;
+  }
+
+  .panel-visible {
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  .panel-hidden {
+    @apply opacity-0 pointer-events-none;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between px-2 py-1 bg-base-800 border-b border-base-700 cursor-move select-none;
+  }
+
+  .panel-content {
+    @apply flex-1 overflow-hidden relative;
+  }
+
+  .resize-handle {
+    @apply absolute w-3 h-3 opacity-0 hover:opacity-100 transition-opacity;
+  }
+
+  .resize-handle.se {
+    @apply bottom-0 right-0 cursor-se-resize;
+  }
+
+  .resize-handle.sw {
+    @apply bottom-0 left-0 cursor-sw-resize;
+  }
+
+  .resize-handle.ne {
+    @apply top-0 right-0 cursor-ne-resize;
+  }
+
+  .resize-handle.nw {
+    @apply top-0 left-0 cursor-nw-resize;
+  }
+
+  .command-bar-overlay {
+    @apply fixed inset-0 z-50 flex items-start justify-center pt-20;
+  }
+
+  .command-bar {
+    @apply w-full max-w-2xl bg-base-900 border border-base-700 rounded-lg shadow-2xl overflow-hidden;
+  }
+
+  .command-bar input {
+    @apply w-full pl-10 pr-4 py-3 bg-base-950 border-b border-base-700 text-base-100 placeholder-base-500 text-sm outline-none;
+  }
+
+  .command-bar ul {
+    @apply max-h-96 overflow-y-auto;
+  }
+
+  .command-bar li {
+    @apply flex items-center gap-3 px-4 py-2.5 text-sm cursor-pointer transition-colors;
+  }
+
+  .command-bar li:hover {
+    @apply bg-base-800;
+  }
+
+  .command-bar li[aria-selected="true"] {
+    @apply bg-primary-600/20 text-primary-100;
+  }
+
+  .command-bar kbd {
+    @apply px-2 py-0.5 text-xs text-base-500 bg-base-800 rounded font-mono;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--base-700)) hsl(var(--base-900));
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-3 py-1.5 text-sm font-medium rounded transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-base-950 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-primary-100 hover:bg-primary-700 focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply bg-base-800 text-base-100 hover:bg-base-700 focus:ring-base-600;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-base-300 hover:bg-base-800 hover:text-base-100 focus:ring-base-600;
+  }
+
+  .btn-danger {
+    @apply bg-danger-600 text-danger-100 hover:bg-danger-700 focus:ring-danger-500;
+  }
+
+  .btn-sm {
+    @apply px-2 py-1 text-xs;
+  }
+
+  .btn-lg {
+    @apply px-4 py-2 text-base;
+  }
+
+  .input {
+    @apply w-full px-3 py-2 text-sm bg-base-900 border border-base-700 rounded-lg text-base-100 placeholder-base-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .input-error {
+    @apply border-danger-500 focus:ring-danger-500;
+  }
+
+  .select {
+    @apply w-full px-3 py-2 text-sm bg-base-900 border border-base-700 rounded-lg text-base-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:pointer-events-none appearance-none bg-no-repeat bg-right pr-10;
+  }
+
+  .card {
+    @apply bg-base-900 border border-base-700 rounded-lg overflow-hidden;
+  }
+
+  .card-header {
+    @apply px-4 py-3 border-b border-base-700;
+  }
+
+  .card-body {
+    @apply p-4;
+  }
+
+  .card-footer {
+    @apply px-4 py-3 border-t border-base-700 bg-base-950/50;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full;
+  }
+
+  .badge-primary {
+    @apply bg-primary-600/20 text-primary-100;
+  }
+
+  .badge-success {
+    @apply bg-success-600/20 text-success-100;
+  }
+
+  .badge-warning {
+    @apply bg-warning-600/20 text-warning-100;
+  }
+
+  .badge-danger {
+    @apply bg-danger-600/20 text-danger-100;
+  }
+
+  .badge-info {
+    @apply bg-info-600/20 text-info-100;
+  }
+
+  .badge-neutral {
+    @apply bg-base-700 text-base-300;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .table {
+    @apply w-full text-sm;
+  }
+
+  .table th {
+    @apply px-3 py-2 text-left text-xs font-medium text-base-500 uppercase tracking-wider bg-base-900/50 border-b border-base-700;
+  }
+
+  .table td {
+    @apply px-3 py-2 border-b border-base-800/50;
+  }
+
+  .table tr:hover td {
+    @apply bg-base-800/50;
+  }
+
+  .dropdown {
+    @apply relative inline-block;
+  }
+
+  .dropdown-menu {
+    @apply absolute right-0 mt-1 w-48 origin-top-right rounded-lg bg-base-900 border border-base-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-base-700;
+  }
+
+  .dropdown-item {
+    @apply block w-full px-3 py-2 text-sm text-base-300 hover:bg-base-800 hover:text-base-100;
+  }
+
+  .dropdown-divider {
+    @apply border-t border-base-700;
+  }
+
+  .tooltip {
+    @apply absolute z-10 px-2 py-1 text-xs text-base-100 bg-base-900 border border-base-700 rounded shadow-lg;
+  }
+
+  .tabs {
+    @apply flex border-b border-base-700;
+  }
+
+  .tab {
+    @apply px-4 py-2 text-sm font-medium text-base-500 hover:text-base-100 hover:border-primary-500 border-b-2 border-transparent transition-colors;
+  }
+
+  .tab-active {
+    @apply text-primary-500 border-primary-500;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm;
+  }
+
+  .modal {
+    @apply relative w-full max-w-lg bg-base-900 border border-base-700 rounded-lg shadow-2xl overflow-hidden;
+  }
+
+  .modal-header {
+    @apply px-4 py-3 border-b border-base-700 flex items-center justify-between;
+  }
+
+  .modal-body {
+    @apply p-4;
+  }
+
+  .modal-footer {
+    @apply px-4 py-3 border-t border-base-700 bg-base-950/50 flex justify-end gap-2;
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.15s ease-out;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.15s ease-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@layer utilities {
+  .select-none { user-select: none; }
+  .select-text { user-select: text; }
+  .select-all { user-select: all; }
+  .select-auto { user-select: auto; }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-primary-400;
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
+
+  .glass-dark {
+    @apply bg-base-950/80 backdrop-blur-lg border border-base-700/50;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--base-700)) hsl(var(--base-900));
+  }
+}

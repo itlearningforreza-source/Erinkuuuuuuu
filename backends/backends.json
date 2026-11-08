@@ -1,0 +1,23 @@
+[
+  {
+    "id": "58519a98-7012-4a3c-a01e-bda8271c89c9",
+    "name": "ERIN API",
+    "command": "openbb-api --host 127.0.0.1 --port 6900",
+    "environment": "openbb",
+    "auto_start": false,
+    "status": "running",
+    "host": "127.0.0.1",
+    "port": 6900,
+    "url": "http://127.0.0.1:6900",
+    "pid": 43815,
+    "started_at": "2026-09-12T10:31:18.440162606+00:00"
+  },
+  {
+    "id": "a131413b-85dd-4628-ab82-95a7f5d3af03",
+    "name": "ERIN MCP",
+    "command": "openbb-mcp --transport streamable-http --host 127.0.0.1 --port 8001",
+    "environment": "openbb",
+    "auto_start": false,
+    "status": "stopped"
+  }
+]

@@ -1,0 +1,14 @@
+[project]
+name = "erin-data_infra"
+version = "0.1.0"
+description = "ERIN data-infra package"
+requires-python = "==3.12.*"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["erin*"]

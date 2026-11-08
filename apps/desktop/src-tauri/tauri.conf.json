@@ -1,0 +1,179 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ERIN",
+  "version": "0.1.0",
+  "identifier": "com.erin.app",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "ERIN - Enterprise Research, Investment & Intelligence Network",
+        "width": 1600,
+        "height": 1000,
+        "minWidth": 1200,
+        "minHeight": 800,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": true,
+        "transparent": false,
+        "visible": false,
+        "center": true,
+        "focus": true,
+        "hiddenTitle": false,
+        "backgroundColor": "#0d1117"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' http://localhost:* ws://localhost:* wss://localhost:* https://api.openbb.co https://query1.finance.yahoo.com https://api.fred.stlouisfed.org https://www.alphavantage.co https://api.polygon.io https://api.twelvedata.com https://finnhub.io https://cloud.iexapis.com https://api.iex.cloud https://sandbox.iexapis.com; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+    },
+    "macOSPrivateApi": true
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb", "rpm"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [],
+    "externalBin": [],
+    "copyright": "© 2026 ERIN Engineering Team",
+    "category": "Finance",
+    "shortDescription": "Enterprise Research, Investment & Intelligence Network",
+    "longDescription": "An independent, modular, scalable, secure, institutional-grade financial operating system.",
+    "linux": {
+      "deb": {
+        "depends": [
+          "libwebkit2gtk-4.1-0",
+          "libayatana-appindicator3-1",
+          "librsvg2-common",
+          "webkit2gtk-driver"
+        ]
+      },
+      "rpm": {
+        "depends": [
+          "webkit2gtk4.1",
+          "libayatana-appindicator-gtk3",
+          "librsvg2"
+        ]
+      }
+    },
+    "windows": {},
+    "macOS": {
+      "dmg": {
+        "windowSize": {
+          "width": 600,
+          "height": 400
+        }
+      }
+    }
+  },
+  "plugins": {
+
+    "fs": true,
+    "shell": {
+      "open": true,
+      "scope": {
+        "allow": [
+          "https://github.com/**",
+          "https://docs.erin.local/**",
+          "https://api.openbb.co/**",
+          "https://query1.finance.yahoo.com/**",
+          "https://api.fred.stlouisfed.org/**",
+          "https://www.alphavantage.co/**",
+          "https://api.polygon.io/**",
+          "https://api.twelvedata.com/**",
+          "https://finnhub.io/**",
+          "https://cloud.iexapis.com/**",
+          "https://api.iex.cloud/**",
+          "https://sandbox.iexapis.com/**"
+        ]
+      }
+    },
+    "http": {
+      "scope": ["http://localhost:8000/**", "http://127.0.0.1:8000/**"]
+    },
+    "globalShortcut": {
+      "allow": [
+        "CommandOrControl+K",
+        "CommandOrControl+Shift+K",
+        "CommandOrControl+P",
+        "CommandOrControl+Shift+P",
+        "F11",
+        "CommandOrControl+Shift+F",
+        "CommandOrControl+W",
+        "CommandOrControl+Shift+W",
+        "CommandOrControl+N",
+        "CommandOrControl+Shift+N",
+        "CommandOrControl+O",
+        "CommandOrControl+S",
+        "CommandOrControl+Shift+S",
+        "CommandOrControl+Z",
+        "CommandOrControl+Shift+Z",
+        "CommandOrControl+F",
+        "CommandOrControl+G",
+        "CommandOrControl+Shift+G",
+        "CommandOrControl+H",
+        "CommandOrControl+Shift+H",
+        "CommandOrControl+R",
+        "F5",
+        "CommandOrControl+Shift+R",
+        "CommandOrControl+Shift+I",
+        "F12",
+        "CommandOrControl+Shift+M",
+        "CommandOrControl+Shift+C",
+        "CommandOrControl+Shift+V",
+        "CommandOrControl+Shift+X",
+        "CommandOrControl+Shift+E",
+        "CommandOrControl+Shift+T",
+        "CommandOrControl+Shift+U",
+        "CommandOrControl+Shift+Y",
+        "CommandOrControl+Shift+J",
+        "CommandOrControl+Shift+L",
+        "CommandOrControl+Shift+Q",
+        "CommandOrControl+Shift+A",
+        "CommandOrControl+Shift+D",
+        "CommandOrControl+Shift+E",
+        "CommandOrControl+Shift+F",
+        "CommandOrControl+Shift+G",
+        "CommandOrControl+Shift+H",
+        "CommandOrControl+Shift+I",
+        "CommandOrControl+Shift+J",
+        "CommandOrControl+Shift+K",
+        "CommandOrControl+Shift+L",
+        "CommandOrControl+Shift+M",
+        "CommandOrControl+Shift+N",
+        "CommandOrControl+Shift+O",
+        "CommandOrControl+Shift+P",
+        "CommandOrControl+Shift+Q",
+        "CommandOrControl+Shift+R",
+        "CommandOrControl+Shift+S",
+        "CommandOrControl+Shift+T",
+        "CommandOrControl+Shift+U",
+        "CommandOrControl+Shift+V",
+        "CommandOrControl+Shift+W",
+        "CommandOrControl+Shift+X",
+        "CommandOrControl+Shift+Y",
+        "CommandOrControl+Shift+Z"
+      ]
+    },
+    "windowState": {},
+    "positioner": {},
+    "opener": {},
+    "log": {
+      "level": "info",
+      "format": "json",
+      "filter": []
+    },
+    "process": {},
+    "sql": {}
+  }
+}

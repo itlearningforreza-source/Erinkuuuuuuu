@@ -1,0 +1,37 @@
+extends: default
+
+rules:
+  line-length:
+    max: 120
+    level: warning
+  document-start:
+    present: true
+    level: error
+  document-end:
+    present: true
+    level: warning
+  indentation:
+    spaces: 2
+    indent-sequences: consistent
+  key-duplicates:
+    level: error
+  trailing-spaces:
+    level: warning
+  empty-lines:
+    max: 2
+    max-start: 0
+    max-end: 1
+  comments:
+    level: warning
+  comments-indentation:
+    level: warning
+  document-end:
+    level: warning
+  empty-values:
+    forbid-in-block-mappings: true
+    forbid-in-flow-mappings: true
+  key-ordering: {}
+  truthy:
+    allowed-values: ["true", "false"]
+    check-keys: true
+    level: warning

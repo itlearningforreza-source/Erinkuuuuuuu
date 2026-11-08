@@ -1,0 +1,238 @@
+[package]
+name = "erin-desktop"
+version = "0.1.0"
+edition = "2021"
+description = "ERIN Desktop Application - Tauri 2 Backend"
+license = "MIT"
+repository = "https://github.com/erin/erin"
+authors = ["ERIN Engineering Team <engineering@erin.local>"]
+categories = ["gui", "financial", "data-analysis"]
+keywords = ["tauri", "financial", "terminal", "trading", "research"]
+
+[dependencies]
+# Tauri 2
+tauri = { workspace = true, features = ["macos-private-api"] }
+tauri-plugin-dialog = { workspace = true }
+tauri-plugin-fs = { workspace = true }
+tauri-plugin-shell = { workspace = true }
+tauri-plugin-http = { workspace = true }
+tauri-plugin-store = { workspace = true }
+tauri-plugin-clipboard-manager = { workspace = true }
+tauri-plugin-global-shortcut = { workspace = true }
+tauri-plugin-window-state = { workspace = true }
+tauri-plugin-positioner = { workspace = true }
+tauri-plugin-opener = { workspace = true }
+tauri-plugin-log = { workspace = true }
+tauri-plugin-process = { workspace = true }
+tauri-plugin-sql = { workspace = true, features = ["sqlite"] }
+
+# Database
+sqlx = { workspace = true, features = ["runtime-tokio-rustls", "sqlite", "chrono", "uuid", "bigdecimal", "json"] }
+rusqlite = { workspace = true, features = ["bundled", "modern_sqlite", "serde_json", "chrono", "uuid"] }
+duckdb = { workspace = true }
+arrow2 = { workspace = true, features = ["csv", "compute", "io_flight"] }
+parquet2 = { workspace = true, features = ["snappy"] }
+
+# Serialization
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+serde_with = { workspace = true }
+toml = { workspace = true }
+toml_edit = { workspace = true }
+
+# Async
+tokio = { workspace = true, features = ["full", "macros"] }
+tokio-util = { workspace = true, features = ["full"] }
+futures = { workspace = true }
+async-trait = { workspace = true }
+
+# HTTP
+reqwest = { workspace = true, features = ["json", "rustls-tls", "cookies", "gzip", "brotli", "stream"] }
+http = { workspace = true }
+hyper = { workspace = true, features = ["full"] }
+hyper-tls = { workspace = true }
+rustls = { workspace = true }
+rustls-pemfile = { workspace = true }
+
+# WebSocket
+tokio-tungstenite = { workspace = true, features = ["__rustls-tls", "native-tls"] }
+tungstenite = { workspace = true }
+
+# Time
+chrono = { workspace = true, features = ["serde", "clock", "rkyv"] }
+time = { workspace = true, features = ["serde", "formatting", "parsing", "local-offset", "macros"] }
+
+# UUID
+uuid = { workspace = true, features = ["v4", "v7", "serde", "fast-rng"] }
+ulid = { workspace = true }
+
+# Crypto
+ring = { workspace = true }
+argon2 = { workspace = true }
+aes-gcm = { workspace = true }
+chacha20poly1305 = { workspace = true }
+x25519-dalek = { workspace = true }
+ed25519-dalek = { workspace = true }
+p256 = { workspace = true }
+p384 = { workspace = true }
+secp256k1 = { workspace = true }
+sha2 = { workspace = true }
+blake3 = { workspace = true }
+hmac = { workspace = true }
+pbkdf2 = { workspace = true }
+zeroize = { workspace = true }
+secrecy = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+eyre = { workspace = true }
+snafu = { workspace = true, features = ["backtrace"] }
+
+# Logging
+tracing = { workspace = true, features = ["std", "log", "valuable"] }
+tracing-subscriber = { workspace = true, features = ["env-filter", "fmt", "json", "registry", "std"] }
+tracing-appender = { workspace = true }
+tracing-error = { workspace = true }
+tracing-opentelemetry = { workspace = true }
+opentelemetry = { workspace = true, features = ["trace", "metrics", "logs"] }
+opentelemetry-otlp = { workspace = true, features = ["tonic"] }
+opentelemetry-prometheus = { workspace = true }
+opentelemetry-stdout = { workspace = true }
+metrics = { workspace = true }
+metrics-exporter-prometheus = { workspace = true }
+
+# Configuration
+config = { workspace = true }
+figment = { workspace = true, features = ["toml", "env"] }
+dirs = { workspace = true }
+dirs-next = { workspace = true }
+
+# CLI
+clap = { workspace = true, features = ["derive", "env", "wrap_help", "cargo"] }
+clap_complete = { workspace = true }
+
+# Parallelism
+rayon = { workspace = true }
+crossbeam = { workspace = true }
+dashmap = { workspace = true }
+parking_lot = { workspace = true }
+once_cell = { workspace = true }
+lazy_static = { workspace = true }
+
+# Collections
+indexmap = { workspace = true, features = ["serde"] }
+hashbrown = { workspace = true }
+smallvec = { workspace = true }
+tinyvec = { workspace = true }
+slotmap = { workspace = true }
+generational-arena = { workspace = true }
+
+# Math
+num-traits = { workspace = true }
+num-bigint = { workspace = true }
+num-rational = { workspace = true }
+num-complex = { workspace = true }
+nalgebra = { workspace = true, features = ["serde", "proptest"] }
+ndarray = { workspace = true, features = ["serde", "rayon"] }
+rand = { workspace = true, features = ["std", "small_rng", "serde"] }
+rand_chacha = { workspace = true }
+rand_distr = { workspace = true }
+statrs = { workspace = true }
+
+# Compression
+flate2 = { workspace = true }
+zstd = { workspace = true, features = ["zstdmt"] }
+snap = { workspace = true }
+lz4 = { workspace = true }
+brotli = { workspace = true }
+
+# File I/O
+walkdir = { workspace = true }
+ignore = { workspace = true }
+glob = { workspace = true }
+notify = { workspace = true, features = ["mio"] }
+async-fs = { workspace = true }
+async-std = { workspace = true, features = ["attributes", "unstable"] }
+
+# Testing
+proptest = { workspace = true }
+quickcheck = { workspace = true }
+quickcheck_macros = { workspace = true }
+assert_cmd = { workspace = true }
+predicates = { workspace = true }
+mockall = { workspace = true }
+wiremock = { workspace = true }
+testcontainers = { workspace = true }
+
+# Benchmarking
+criterion = { workspace = true, features = ["html_reports", "async"] }
+
+# Profiling
+pprof = { workspace = true, features = ["flamegraph"] }
+flamegraph = { workspace = true }
+
+# Misc
+bitflags = { workspace = true }
+enumflags2 = { workspace = true }
+strum = { workspace = true, features = ["derive"] }
+displaydoc = { workspace = true }
+derive_more = { workspace = true }
+derive_builder = { workspace = true }
+typed-builder = { workspace = true }
+bon = { workspace = true }
+paste = { workspace = true }
+const_format = { workspace = true }
+const_format_proc_macros = { workspace = true }
+
+[build-dependencies]
+tauri-build = { workspace = true }
+
+[profile.dev]
+opt-level = 0
+debug = true
+debug-assertions = true
+overflow-checks = true
+lto = false
+rpath = false
+split-debuginfo = "unpacked"
+debug-info-for-profiling = true
+strip = false
+
+[profile.release]
+opt-level = 3
+debug = false
+debug-assertions = false
+overflow-checks = false
+lto = "fat"
+codegen-units = 1
+rpath = false
+strip = true
+panic = "abort"
+
+[profile.test]
+opt-level = 2
+debug = true
+debug-assertions = true
+overflow-checks = true
+lto = false
+
+[profile.bench]
+opt-level = 3
+debug = false
+debug-assertions = false
+overflow-checks = false
+lto = "fat"
+codegen-units = 1
+
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "link-arg=-Wl,--as-needed"]
+
+[target.aarch64-apple-darwin]
+rustflags = ["-C", "target-feature=+crt-static"]
+
+[lints]
+workspace = true

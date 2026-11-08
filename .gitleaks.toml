@@ -1,0 +1,359 @@
+[extend]
+# Use the default gitleaks config as base
+useDefault = true
+
+[allowlist]
+description = "Allowlisted secrets for ERIN development"
+paths = [
+  "*.md",
+  "*.txt",
+  "*.json",
+  "*.yaml",
+  "*.yml",
+  "*.toml",
+  "*.example",
+  "*.sample",
+  "*.template",
+  "test*",
+  "*_test*",
+  "*test*",
+  "fixtures/*",
+  "testdata/*",
+]
+commits = []
+regexes = [
+  # Allow test API keys and example credentials
+  '''(?i)(test|example|sample|dummy|fake|mock|placeholder)['\"]?\s*[:=]\s*['\"]?[a-zA-Z0-9]{20,}''',
+  # Allow ERIN-specific test keys
+  '''erin[_-]?(test|dev|example)['\"]?\s*[:=]\s*['\"]?[a-zA-Z0-9]{20,}''',
+]
+
+[[rules]]
+description = "Generic API Key"
+regex = '''(?i)(api[_-]?key|apikey)['\"]?\s*[:=]\s*['\"]?[a-zA-Z0-9]{20,}'''
+tags = ["key", "api"]
+
+[[rules]]
+description = "Generic Secret"
+regex = '''(?i)(secret|password|passwd|pwd)['\"]?\s*[:=]\s*['\"]?[^\s]{8,}'''
+tags = ["secret", "password"]
+
+[[rules]]
+description = "AWS Access Key"
+regex = '''(?i)AKIA[0-9A-Z]{16}'''
+tags = ["aws", "key"]
+
+[[rules]]
+description = "AWS Secret Key"
+regex = '''(?i)aws[_-]?secret[_-]?access[_-]?key['\"]?\s*[:=]\s*['\"]?[A-Za-z0-9/+=]{40}'''
+tags = ["aws", "secret"]
+
+[[rules]]
+description = "GitHub Token"
+regex = '''(?i)gh[ps]_[A-Za-z0-9_]{36,}'''
+tags = ["github", "token"]
+
+[[rules]]
+description = "GitLab Token"
+regex = '''(?i)glpat-[A-Za-z0-9_-]{20,}'''
+tags = ["gitlab", "token"]
+
+[[rules]]
+description = "Slack Token"
+regex = '''(?i)xox[baprs]-[A-Za-z0-9-]{10,}'''
+tags = ["slack", "token"]
+
+[[rules]]
+description = "Discord Token"
+regex = '''(?i)[MN][A-Za-z\d]{23}\.[\w-]{6}\.[\w-]{27}'''
+tags = ["discord", "token"]
+
+[[rules]]
+description = "OpenAI API Key"
+regex = '''(?i)sk-[A-Za-z0-9]{48,}'''
+tags = ["openai", "key"]
+
+[[rules]]
+description = "Anthropic API Key"
+regex = '''(?i)sk-ant-[A-Za-z0-9_-]{95,}'''
+tags = ["anthropic", "key"]
+
+[[rules]]
+description = "Database URL"
+regex = '''(?i)(postgres|mysql|mongodb|redis)://[^:\s]+:[^@\s]+@[^\s]+'''
+tags = ["database", "url"]
+
+[[rules]]
+description = "Private Key"
+regex = '''(?i)-----BEGIN (RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----'''
+tags = ["private-key"]
+
+[[rules]]
+description = "JWT Token"
+regex = '''(?i)eyJ[A-Za-z0-9_-]+\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+'''
+tags = ["jwt", "token"]
+
+[[rules]]
+description = "Stripe Key"
+regex = '''(?i)sk_live_[A-Za-z0-9]{24,}'''
+tags = ["stripe", "key"]
+
+[[rules]]
+description = "SendGrid Key"
+regex = '''(?i)SG\.[A-Za-z0-9_-]{22}\.[A-Za-z0-9_-]{43}'''
+tags = ["sendgrid", "key"]
+
+[[rules]]
+description = "Twilio Key"
+regex = '''(?i)SK[0-9a-f]{32}'''
+tags = ["twilio", "key"]
+
+[[rules]]
+description = "Mailgun Key"
+regex = '''(?i)key-[0-9a-f]{32}'''
+tags = ["mailgun", "key"]
+
+[[rules]]
+description = "Square Key"
+regex = '''(?i)sq0atp-[0-9A-Za-z_-]{22}'''
+tags = ["square", "key"]
+
+[[rules]]
+description = "PayPal Key"
+regex = '''(?i)A21[A-Za-z0-9_-]{60,}'''
+tags = ["paypal", "key"]
+
+[[rules]]
+description = "Alipay Key"
+regex = '''(?i)app_[0-9a-z]{32}'''
+tags = ["alipay", "key"]
+
+[[rules]]
+description = "WeChat Pay Key"
+regex = '''(?i)mch_[0-9a-z]{32}'''
+tags = ["wechat", "key"]
+
+[[rules]]
+description = "Google Cloud Key"
+regex = '''(?i)GOOGLE_APPLICATION_CREDENTIALS['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["gcp", "key"]
+
+[[rules]]
+description = "Azure Key"
+regex = '''(?i)AZURE_CLIENT_SECRET['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["azure", "key"]
+
+[[rules]]
+description = "Heroku Key"
+regex = '''(?i)[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'''
+tags = ["heroku", "key"]
+
+[[rules]]
+description = "Vercel Token"
+regex = '''(?i)VERCEL_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["vercel", "token"]
+
+[[rules]]
+description = "Netlify Token"
+regex = '''(?i)NETLIFY_AUTH_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["netlify", "token"]
+
+[[rules]]
+description = "Cloudflare Token"
+regex = '''(?i)CF_API_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["cloudflare", "token"]
+
+[[rules]]
+description = "DigitalOcean Token"
+regex = '''(?i)DIGITALOCEAN_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["digitalocean", "token"]
+
+[[rules]]
+description = "Linode Token"
+regex = '''(?i)LINODE_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["linode", "token"]
+
+[[rules]]
+description = "GitHub OAuth Token"
+regex = '''(?i)GITHUB_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["github", "token"]
+
+[[rules]]
+description = "GitLab CI Token"
+regex = '''(?i)CI_JOB_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["gitlab", "token"]
+
+[[rules]]
+description = "Bitbucket Token"
+regex = '''(?i)BITBUCKET_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["bitbucket", "token"]
+
+[[rules]]
+description = "Docker Hub Token"
+regex = '''(?i)DOCKER_HUB_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["docker", "token"]
+
+[[rules]]
+description = "npm Token"
+regex = '''(?i)NPM_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["npm", "token"]
+
+[[rules]]
+description = "PyPI Token"
+regex = '''(?i)PYPI_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["pypi", "token"]
+
+[[rules]]
+description = "Cargo Registry Token"
+regex = '''(?i)CARGO_REGISTRY_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["cargo", "token"]
+
+[[rules]]
+description = "NuGet Key"
+regex = '''(?i)NUGET_API_KEY['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["nuget", "key"]
+
+[[rules]]
+description = "Gemfury Token"
+regex = '''(?i)GEMFURY_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["gemfury", "token"]
+
+[[rules]]
+description = "Artifactory Key"
+regex = '''(?i)ARTIFACTORY_API_KEY['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["artifactory", "key"]
+
+[[rules]]
+description = "SonarQube Token"
+regex = '''(?i)SONAR_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["sonarqube", "token"]
+
+[[rules]]
+description = "Snyk Token"
+regex = '''(?i)SNYK_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["snyk", "token"]
+
+[[rules]]
+description = "WhiteSource Token"
+regex = '''(?i)WHITESOURCE_API_KEY['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["whitesource", "key"]
+
+[[rules]]
+description = "Codacy Token"
+regex = '''(?i)CODACY_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["codacy", "token"]
+
+[[rules]]
+description = "Codecov Token"
+regex = '''(?i)CODECOV_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["codecov", "token"]
+
+[[rules]]
+description = "Coveralls Token"
+regex = '''(?i)COVERALLS_REPO_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["coveralls", "token"]
+
+[[rules]]
+description = "Travis CI Token"
+regex = '''(?i)TRAVIS_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["travis", "token"]
+
+[[rules]]
+description = "CircleCI Token"
+regex = '''(?i)CIRCLECI_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["circleci", "token"]
+
+[[rules]]
+description = "AppVeyor Token"
+regex = '''(?i)APPVEYOR_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["appveyor", "token"]
+
+[[rules]]
+description = "Drone CI Token"
+regex = '''(?i)DRONE_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["drone", "token"]
+
+[[rules]]
+description = "Buildkite Token"
+regex = '''(?i)BUILDKITE_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["buildkite", "token"]
+
+[[rules]]
+description = "Semaphore CI Token"
+regex = '''(?i)SEMAPHORE_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["semaphore", "token"]
+
+[[rules]]
+description = "TeamCity Token"
+regex = '''(?i)TEAMCITY_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["teamcity", "token"]
+
+[[rules]]
+description = "GitHub Actions Token"
+regex = '''(?i)ACTIONS_RUNTIME_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["github", "actions", "token"]
+
+[[rules]]
+description = "AWS Session Token"
+regex = '''(?i)AWS_SESSION_TOKEN['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["aws", "token"]
+
+[[rules]]
+description = "AWS Access Key ID"
+regex = '''(?i)AWS_ACCESS_KEY_ID['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["aws", "key"]
+
+[[rules]]
+description = "AWS Secret Access Key"
+regex = '''(?i)AWS_SECRET_ACCESS_KEY['\"]?\s*[:=]\s*['\"]?[^\s]+'''
+tags = ["aws", "secret"]
+
+[[rules]]
+description = "GCP Service Account Key"
+regex = '''(?i)"type":\s*"service_account"'''
+tags = ["gcp", "service-account"]
+
+[[rules]]
+description = "PGP Private Key"
+regex = '''(?i)-----BEGIN PGP PRIVATE KEY BLOCK-----'''
+tags = ["pgp", "private-key"]
+
+[[rules]]
+description = "SSH Private Key"
+regex = '''(?i)-----BEGIN OPENSSH PRIVATE KEY-----'''
+tags = ["ssh", "private-key"]
+
+[[rules]]
+description = "SSH Private Key (RSA)"
+regex = '''(?i)-----BEGIN RSA PRIVATE KEY-----'''
+tags = ["ssh", "private-key", "rsa"]
+
+[[rules]]
+description = "SSH Private Key (DSA)"
+regex = '''(?i)-----BEGIN DSA PRIVATE KEY-----'''
+tags = ["ssh", "private-key", "dsa"]
+
+[[rules]]
+description = "SSH Private Key (EC)"
+regex = '''(?i)-----BEGIN EC PRIVATE KEY-----'''
+tags = ["ssh", "private-key", "ec"]
+
+[[rules]]
+description = "Certificate"
+regex = '''(?i)-----BEGIN CERTIFICATE-----'''
+tags = ["certificate"]
+
+[[rules]]
+description = "PKCS12"
+regex = '''(?i)-----BEGIN PKCS12-----'''
+tags = ["pkcs12"]
+
+[[rules]]
+description = "PKCS7"
+regex = '''(?i)-----BEGIN PKCS7-----'''
+tags = ["pkcs7"]
+
+[[rules]]
+description = "PKCS8"
+regex = '''(?i)-----BEGIN PRIVATE KEY-----'''
+tags = ["pkcs8", "private-key"]
