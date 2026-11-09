@@ -20,18 +20,16 @@ from erin.core.exceptions import (
     AuthorizationError,
     RateLimitError,
 )
-from erin.market_intel.api.routers import (
-    market_data,
-    instruments,
-    watchlists,
-    charts,
-    portfolios,
-    orders,
-    risk,
-    analytics,
-    news,
-    fundamentals,
-)
+from erin.market_intel.api.routers.market_data import router as market_data
+from erin.market_intel.api.routers.instruments import router as instruments
+from erin.market_intel.api.routers.watchlists import router as watchlists
+from erin.market_intel.api.routers.charts import router as charts
+from erin.market_intel.api.routers.portfolios import router as portfolios
+from erin.market_intel.api.routers.orders import router as orders
+from erin.market_intel.api.routers.risk import router as risk
+from erin.market_intel.api.routers.analytics import router as analytics
+from erin.market_intel.api.routers.news import router as news
+from erin.market_intel.api.routers.fundamentals import router as fundamentals
 
 # Setup logging
 setup_logging()
