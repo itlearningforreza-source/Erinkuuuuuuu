@@ -112,6 +112,8 @@ dependencies = [
     "pip-audit==2.7.0",
     "semgrep==1.85.0",
     "pre-commit==3.7.0",
+    "yfinance>=1.8.0",
+    "feedparser>=6.0.14",
 ]
 
 [tool.uv.sources]

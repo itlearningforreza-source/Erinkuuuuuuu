@@ -1,0 +1,1 @@
+rm -f /home/rezaahmadkhairuddin/.erin/data/erin.db /home/rezaahmadkhairuddin/.erin/data/erin_analytics.duckdb ~/.erin/audit.db ~/.erin/keys.db ~/.erin/users.db ~/.erin/sessions.db
