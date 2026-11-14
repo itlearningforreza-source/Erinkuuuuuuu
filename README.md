@@ -282,6 +282,6 @@ See `SECURITY.md` for vulnerability disclosure policy and security contact.
 
 ## Repository
 
-**GitHub:** https://github.com/itlearningforreza-source/Erinkuuuuuuu
+**GitHub:** https://github.com/itlearningforreza-source/Erin
 
-**Clone:** `git clone https://github.com/itlearningforreza-source/Erinkuuuuuuu.git`
+**Clone:** `git clone https://github.com/itlearningforreza-source/Erin.git`
