@@ -22,10 +22,12 @@ class LanceDBVectorStorage:
         self.db_path = db_path
         self._db = None
         self._tables: Dict[str, Any] = {}
+        import os
+        self.db_path = os.path.expanduser(db_path)
     
     async def _get_db(self):
         if self._db is None:
-            self._db = lancedb.connect(db_path)
+            self._db = lancedb.connect(self.db_path)
         return self._db
     
     async def _get_table(self, collection: str):
@@ -36,7 +38,7 @@ class LanceDBVectorStorage:
                 import pyarrow as pa
                 schema = pa.schema([
                     pa.field("id", pa.string()),
-                    pa.field("vector", pa.list_(pa.float32(), 384)),  # Default 384-dim
+                    pa.field("vector", pa.list_(pa.float32())),  # Variable-size list for embeddings
                     pa.field("content", pa.string()),
                     pa.field("metadata", pa.string()),
                     pa.field("source", pa.string()),
@@ -81,7 +83,7 @@ class LanceDBVectorStorage:
         import pyarrow as pa
         data = pa.table({
             "id": pa.array(ids),
-            "vector": pa.array([pa.array(emb, type=pa.float32()) for emb in vectors]),
+            "vector": pa.chunked_array([[pa.array(emb, type=pa.float32()) for emb in vectors]]),
             "content": pa.array(contents),
             "metadata": pa.array([str(m) for m in metadatas]),
             "source": pa.array(sources),
@@ -110,7 +112,7 @@ class LanceDBVectorStorage:
         if filters:
             # LanceDB supports filter predicates
             for key, value in filters.items():
-                query = query.where(f"metadata['{key}'] == '{value}'")
+                query = query.where(f"metadata.{key} == '{value}'")
         
         results = query.to_pandas()
         

@@ -14,19 +14,20 @@ from erin.market_intel.domain.interfaces import (
     ProviderId,
 )
 
-router = APIRouter(prefix="/market-data", tags=["Market Data"])
+router = APIRouter(tags=["Market Data"])
 
 
-@router.get("/quotes", response_model=List[Quote])
+@router.get("/quotes")
 async def get_quotes(
-    symbols: List[str] = Query(..., description="Comma-separated list of symbols"),
+    symbols: str = Query(..., description="Comma-separated list of symbols"),
     fields: Optional[List[str]] = Query(None, description="Fields to return"),
 ):
     """Get real-time quotes for symbols."""
     # This would integrate with the market data service
     # For now, return mock data
+    symbol_list = [s.strip() for s in symbols.split(",")]
     quotes = []
-    for symbol in symbols:
+    for symbol in symbol_list:
         quotes.append({
             "instrument_id": {
                 "figi": f"FIGI_{symbol}",

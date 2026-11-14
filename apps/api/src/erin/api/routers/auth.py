@@ -6,10 +6,11 @@ import secrets
 import hashlib
 from passlib.context import CryptContext
 from jose import jwt, JWTError
+from fastapi.security import OAuth2PasswordBearer
 
 from erin.api.core.config import settings
 from erin.api.core.database import get_sqlite_db, sqlite_transaction
-from erin.api.models.auth import (
+from erin.api.models import (
     UserCreate, UserLogin, Token, TokenData, UserResponse,
     MFASetup, MFAVerify, PasswordChange
 )
@@ -17,6 +18,7 @@ from erin.api.models.auth import (
 router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
 
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
@@ -202,8 +204,3 @@ async def change_password(change: PasswordChange, current_user = Depends(get_cur
         conn.execute("UPDATE users SET password_hash = ? WHERE id = ?", (hashed, current_user["id"]))
     return {"message": "Password changed successfully"}
 
-# Missing imports
-from typing import Optional
-from fastapi.security import OAuth2PasswordBearer
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/auth/login")

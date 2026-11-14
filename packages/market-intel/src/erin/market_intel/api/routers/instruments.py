@@ -4,7 +4,7 @@ from fastapi import APIRouter, Query, HTTPException
 from typing import List, Optional
 from datetime import datetime
 
-router = APIRouter(prefix="/instruments", tags=["Instruments"])
+router = APIRouter(tags=["Instruments"])
 
 
 @router.get("/search")

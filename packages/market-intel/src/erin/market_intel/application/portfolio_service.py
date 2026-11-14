@@ -127,11 +127,11 @@ class Transaction:
     quantity: Decimal
     price: Decimal
     price_currency: str
+    executed_at: datetime
     fees: Decimal = Decimal('0')
     fees_currency: str = 'USD'
     slippage: Optional[Decimal] = None
     slippage_currency: Optional[str] = None
-    executed_at: datetime
     status: str = 'FILLED'  # FILLED, PARTIAL, CANCELLED, REJECTED
     broker: Optional[str] = None
     order_id: Optional[str] = None

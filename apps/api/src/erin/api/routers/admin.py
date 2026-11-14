@@ -6,6 +6,9 @@ from decimal import Decimal
 
 from erin.api.core.database import get_sqlite_db, sqlite_transaction
 from erin.api.models import UserCreateAdmin, UserUpdateAdmin, LicenseUpdate
+import json
+import secrets
+from erin.api.routers.auth import get_current_user
 
 router = APIRouter(prefix="/api/v1/admin", tags=["admin"])
 

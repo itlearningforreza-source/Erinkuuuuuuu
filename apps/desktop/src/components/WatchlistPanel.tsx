@@ -1,5 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 
+interface Quote {
+  symbol: string;
+  name: string;
+  last: number;
+  change: number;
+  changePercent: number;
+  volume: number;
+  timestamp: string;
+}
+
 interface WatchlistItem {
   symbol: string;
   name: string;
@@ -18,10 +28,24 @@ export function WatchlistPanel() {
 
   const fetchQuotes = useCallback(async (symbols: string[]) => {
     try {
-      const response = await fetch(`/api/v1/quotes?symbols=${symbols.join(',')}`);
+      const response = await fetch(`/api/v1/market-data/quotes?symbols=${symbols.join(',')}`);
       if (!response.ok) throw new Error('Failed to fetch quotes');
       const data = await response.json();
-      return data.quotes || {};
+      // Backend returns array of quotes
+      const quotesMap: Record<string, Quote> = {};
+      data.forEach((quote: any) => {
+        const sym = quote.instrument_id?.composite_ticker || quote.symbol;
+        quotesMap[sym] = {
+          symbol: sym,
+          name: quote.instrument_id?.composite_ticker || sym,
+          last: quote.last?.value || 0,
+          change: 0, // Would need prev close
+          changePercent: 0,
+          volume: quote.volume || 0,
+          timestamp: quote.timestamp || new Date().toISOString(),
+        };
+      });
+      return quotesMap;
     } catch (err) {
       console.error('Failed to fetch quotes:', err);
       return {};
@@ -32,7 +56,8 @@ export function WatchlistPanel() {
     setLoading(true);
     setError(null);
     try {
-      const defaultSymbols = ['AAPL.US', 'MSFT.US', 'GOOGL.US', 'AMZN.US', 'TSLA.US', 'META.US', 'NVDA.US', 'JPM.US'];
+      // Use simple symbols without .US suffix
+      const defaultSymbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'JPM'];
       const quotes = await fetchQuotes(defaultSymbols);
       
       const newItems: WatchlistItem[] = defaultSymbols.map(symbol => {
@@ -70,7 +95,9 @@ export function WatchlistPanel() {
   const addSymbol = useCallback(async () => {
     if (!newSymbol.trim()) return;
     const symbol = newSymbol.trim().toUpperCase();
-    if (items.some(item => item.symbol === symbol)) return;
+    // Remove .US suffix if present
+    const cleanSymbol = symbol.replace('.US', '');
+    if (items.some(item => item.symbol === cleanSymbol)) return;
     
     setNewSymbol('');
     await loadWatchlist();

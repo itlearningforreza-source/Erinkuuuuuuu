@@ -13,7 +13,7 @@ from datetime import datetime
 from decimal import Decimal
 
 
-router = APIRouter(prefix="/risk", tags=["Risk"])
+router = APIRouter(tags=["Risk"])
 
 
 class VaRRequest(BaseModel):
@@ -31,9 +31,6 @@ class VaRResponse(BaseModel):
     horizon_days: int
     method: str
     details: dict
-
-
-router = APIRouter(prefix="/risk", tags=["Risk"])
 
 
 @router.post("/var", response_model=dict)

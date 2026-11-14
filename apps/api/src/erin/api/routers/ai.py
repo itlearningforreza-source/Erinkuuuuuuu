@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status, Body
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 from datetime import date, datetime
@@ -7,8 +7,11 @@ from decimal import Decimal
 from erin.api.core.database import get_sqlite_db, sqlite_transaction
 from erin.api.models import (
     RAGQuery, RAGResult, RAGQueryResponse, ToolCallRequest, ToolCallResponse,
-    ToolCallStatus, ToolCall
+    ToolCallStatus
 )
+import json
+import secrets
+from erin.api.routers.auth import get_current_user
 
 router = APIRouter(prefix="/api/v1/ai", tags=["ai"])
 
@@ -61,5 +64,3 @@ async def generate_report(
 ):
     report_id = secrets.token_urlsafe(16)
     return {"report_id": report_id}
-
-import json

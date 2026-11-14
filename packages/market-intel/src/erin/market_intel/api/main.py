@@ -90,16 +90,16 @@ def create_app() -> FastAPI:
     app.add_exception_handler(Exception, general_exception_handler)
     
     # Include routers
-    app.include_router(market_data.router, prefix="/api/v1/market-data", tags=["Market Data"])
-    app.include_router(instruments.router, prefix="/api/v1/instruments", tags=["Instruments"])
-    app.include_router(watchlists.router, prefix="/api/v1/watchlists", tags=["Watchlists"])
-    app.include_router(charts.router, prefix="/api/v1/charts", tags=["Charts"])
-    app.include_router(portfolios.router, prefix="/api/v1/portfolios", tags=["Portfolios"])
-    app.include_router(orders.router, prefix="/api/v1/orders", tags=["Orders"])
-    app.include_router(risk.router, prefix="/api/v1/risk", tags=["Risk"])
-    app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Analytics"])
-    app.include_router(news.router, prefix="/api/v1/news", tags=["News"])
-    app.include_router(fundamentals.router, prefix="/api/v1/fundamentals", tags=["Fundamentals"])
+    app.include_router(market_data, prefix="/api/v1/market-data", tags=["Market Data"])
+    app.include_router(instruments, prefix="/api/v1/instruments", tags=["Instruments"])
+    app.include_router(watchlists, prefix="/api/v1/watchlists", tags=["Watchlists"])
+    app.include_router(charts, prefix="/api/v1/charts", tags=["Charts"])
+    app.include_router(portfolios, prefix="/api/v1/portfolios", tags=["Portfolios"])
+    app.include_router(orders, prefix="/api/v1/orders", tags=["Orders"])
+    app.include_router(risk, prefix="/api/v1/risk", tags=["Risk"])
+    app.include_router(analytics, prefix="/api/v1/analytics", tags=["Analytics"])
+    app.include_router(news, prefix="/api/v1/news", tags=["News"])
+    app.include_router(fundamentals, prefix="/api/v1/fundamentals", tags=["Fundamentals"])
     
     # Health check endpoint
     @app.get("/health", tags=["Health"])

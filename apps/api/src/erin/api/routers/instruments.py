@@ -6,35 +6,12 @@ from decimal import Decimal
 from enum import Enum
 
 from erin.api.core.database import get_sqlite_db, sqlite_transaction
-from erin.api.models.instruments import Instrument, InstrumentCreate, InstrumentSearch
+from erin.api.models import (
+    AssetClass, InstrumentBase, InstrumentCreate, InstrumentResponse, InstrumentSearch
+)
 
 router = APIRouter(prefix="/api/v1/instruments", tags=["instruments"])
 
-class AssetClass(str, Enum):
-    EQUITY = "EQUITY"
-    FIXED_INCOME = "FIXED_INCOME"
-    DERIVATIVE = "DERIVATIVE"
-    COMMODITY = "COMMODITY"
-    FX = "FX"
-    CRYPTO = "CRYPTO"
-    FUND = "FUND"
-    CASH = "CASH"
-
-class InstrumentResponse(BaseModel):
-    figi: str
-    composite_ticker: str
-    name: str
-    asset_class: AssetClass
-    primary_exchange: str
-    currency: str
-    country: str
-    sector: Optional[str] = None
-    industry: Optional[str] = None
-    gics_code: Optional[str] = None
-    is_active: bool
-    metadata: Optional[Dict[str, Any]] = None
-    created_at: datetime
-    updated_at: datetime
 
 @router.get("", response_model=Dict[str, Any])
 async def search_instruments(

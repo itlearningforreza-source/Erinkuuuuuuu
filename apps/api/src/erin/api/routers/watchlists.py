@@ -5,6 +5,9 @@ from datetime import date, datetime
 from decimal import Decimal
 
 from erin.api.core.database import get_sqlite_db, sqlite_transaction
+import json
+import secrets
+from erin.api.routers.auth import get_current_user
 
 router = APIRouter(prefix="/api/v1/watchlists", tags=["watchlists"])
 
@@ -42,7 +45,7 @@ async def create_watchlist(watchlist: WatchlistCreate, current_user = Depends(ge
         conn.execute(
             """INSERT INTO watchlists (id, user_id, name, symbols, created_at, updated_at)
                VALUES (?, ?, ?, ?, ?, ?)""",
-            (watchlist_id, current_user["id"], watchlist.name, 
+            (watchlist_id, current_user["id"], watchlist.name,
              json.dumps(watchlist.symbols), now, now)
         )
         
@@ -104,8 +107,3 @@ async def delete_watchlist(watchlist_id: str, current_user = Depends(get_current
         if cursor.rowcount == 0:
             raise HTTPException(status_code=404, detail="Watchlist not found")
 
-from typing import Optional
-from fastapi import WebSocket
-from erin.api.core.database import get_sqlite_db, sqlite_transaction
-import json
-import secrets

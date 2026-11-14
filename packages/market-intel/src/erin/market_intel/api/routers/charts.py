@@ -5,7 +5,7 @@ from typing import List, Optional
 from datetime import datetime, timedelta
 from decimal import Decimal
 
-router = APIRouter(prefix="/charts", tags=["Charts"])
+router = APIRouter(tags=["Charts"])
 
 
 @router.get("/data")

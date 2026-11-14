@@ -8,6 +8,9 @@ from erin.api.core.database import get_sqlite_db, sqlite_transaction
 from erin.api.models import (
     VaRModelResponse, VaRMethod, VaRResult, VaRModelBase
 )
+import secrets
+from erin.api.routers.auth import get_current_user
+from fastapi import Body
 
 router = APIRouter(prefix="/api/v1/risk", tags=["risk"])
 
@@ -114,5 +117,3 @@ async def create_stress_test(test: StressTestCreate, current_user = Depends(get_
 async def get_stress_test(test_id: str, current_user = Depends(get_current_user), db = Depends(get_sqlite_db)):
     raise HTTPException(status_code=404, detail="Not implemented")
 
-from typing import Optional
-from fastapi import Body

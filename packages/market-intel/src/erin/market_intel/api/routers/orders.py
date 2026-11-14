@@ -58,7 +58,7 @@ class OrderResponse(BaseModel):
     updated_at: datetime
 
 
-router = APIRouter(prefix="/orders", tags=["Orders"])
+router = APIRouter(tags=["Orders"])
 
 
 @router.post("/", response_model=dict)

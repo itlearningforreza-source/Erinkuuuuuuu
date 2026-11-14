@@ -12,7 +12,7 @@ from typing import List, Optional
 from datetime import datetime
 
 
-router = APIRouter(prefix="/watchlists", tags=["Watchlists"])
+router = APIRouter(tags=["Watchlists"])
 
 
 class WatchlistCreate(BaseModel):

@@ -6,7 +6,10 @@ from decimal import Decimal
 
 from erin.api.core.database import get_duckdb_db, get_sqlite_db, sqlite_transaction
 from erin.api.core.config import settings
-from erin.api.models.market_data import Quote, QuoteBatch, Bar, Instrument, InstrumentSearch
+from erin.api.models import (
+    AssetClass, CurrencyCode, Quote, QuoteBatch, Bar, InstrumentBase, InstrumentSearch
+)
+from fastapi import WebSocket
 
 router = APIRouter(prefix="/api/v1/quotes", tags=["market-data"])
 
@@ -20,12 +23,12 @@ async def get_quotes(
     symbol_list = [s.strip().upper() for s in symbols.split(",")]
     
     with sqlite_transaction() as conn:
-        placeholders = ",".join(["?"] * len(symbols_list))
+        placeholders = ",".join(["?"] * len(symbol_list))
         cursor = conn.execute(
             f"""SELECT i.figi, i.composite_ticker, i.name, i.currency, i.asset_class
                 FROM instruments i
                 WHERE i.composite_ticker IN ({placeholders})""",
-            symbols_list
+            symbol_list
         )
         instruments = {row["composite_ticker"]: dict(row) for row in cursor.fetchall()}
     
@@ -99,4 +102,3 @@ async def websocket_quotes(websocket: WebSocket):
     except Exception:
         await websocket.close()
 
-from fastapi import WebSocket

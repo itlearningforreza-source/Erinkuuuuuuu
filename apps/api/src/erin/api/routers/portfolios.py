@@ -9,6 +9,8 @@ from erin.api.models import (
     PortfolioResponse, PortfolioCreate, PositionResponse, PositionBase,
     TransactionBase, TransactionResponse, VaRModelResponse, VaRMethod, VaRResult
 )
+import secrets
+from erin.api.routers.auth import get_current_user
 
 router = APIRouter(prefix="/api/v1/portfolios", tags=["portfolios"])
 
@@ -220,4 +222,3 @@ async def add_transaction(
         cursor = conn.execute("SELECT * FROM transactions WHERE id = ?", (trans_id,))
         return TransactionResponse(**dict(cursor.fetchone()))
 
-import secrets

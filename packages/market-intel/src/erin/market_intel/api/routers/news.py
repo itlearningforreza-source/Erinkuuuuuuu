@@ -8,7 +8,7 @@ from typing import List, Optional
 from datetime import datetime, timedelta
 
 
-router = APIRouter(prefix="/news", tags=["News"])
+router = APIRouter(tags=["News"])
 
 
 @router.get("/")

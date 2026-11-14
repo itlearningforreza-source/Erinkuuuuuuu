@@ -78,28 +78,14 @@
   },
   "plugins": {
 
-    "fs": true,
+    "fs": {
+      "scopeDroppedPaths": true
+    },
     "shell": {
-      "open": true,
-      "scope": {
-        "allow": [
-          "https://github.com/**",
-          "https://docs.erin.local/**",
-          "https://api.openbb.co/**",
-          "https://query1.finance.yahoo.com/**",
-          "https://api.fred.stlouisfed.org/**",
-          "https://www.alphavantage.co/**",
-          "https://api.polygon.io/**",
-          "https://api.twelvedata.com/**",
-          "https://finnhub.io/**",
-          "https://cloud.iexapis.com/**",
-          "https://api.iex.cloud/**",
-          "https://sandbox.iexapis.com/**"
-        ]
-      }
+      "open": true
     },
     "http": {
-      "scope": ["http://localhost:8000/**", "http://127.0.0.1:8000/**"]
+      "scopeRedirects": true
     },
     "globalShortcut": {
       "allow": [
@@ -168,11 +154,7 @@
     "windowState": {},
     "positioner": {},
     "opener": {},
-    "log": {
-      "level": "info",
-      "format": "json",
-      "filter": []
-    },
+
     "process": {},
     "sql": {}
   }

@@ -14,19 +14,43 @@ interface ChartPanelProps {
   timeframe?: '1D' | '1W' | '1M' | '3M' | '1Y' | '5Y';
 }
 
-export function ChartPanel({ symbol = 'AAPL.US', timeframe = '1D' }: ChartPanelProps) {
+export function ChartPanel({ symbol = 'AAPL', timeframe = '1D' }: ChartPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<any>(null);
   const seriesRef = useRef<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Convert timeframe to backend format
+  const getBackendTimeframe = (tf: string) => {
+    const map: Record<string, string> = {
+      '1D': '1D',
+      '1W': '1W',
+      '1M': '1M',
+      '3M': '3M',
+      '1Y': '1Y',
+      '5Y': '5Y',
+    };
+    return map[tf] || '1D';
+  };
+
   const fetchChartData = async (sym: string, tf: string): Promise<ChartData[]> => {
     try {
-      const response = await fetch(`/api/v1/quotes/${sym}/history?interval=${tf}&limit=500`);
+      // Remove .US suffix if present
+      const cleanSymbol = sym.replace('.US', '');
+      const backendTf = getBackendTimeframe(tf);
+      const response = await fetch(`/api/v1/charts/data?symbol=${cleanSymbol}&timeframe=${backendTf}`);
       if (!response.ok) throw new Error('Failed to fetch chart data');
       const data = await response.json();
-      return data.bars || [];
+      // Backend returns { symbol, timeframe, data: [...] }
+      return (data.data || []).map((d: any) => ({
+        time: Math.floor(new Date(d.timestamp).getTime() / 1000),
+        open: d.open,
+        high: d.high,
+        low: d.low,
+        close: d.close,
+        volume: d.volume,
+      }));
     } catch (err) {
       console.error('Failed to fetch chart data:', err);
       return [];
@@ -164,13 +188,13 @@ export function ChartPanel({ symbol = 'AAPL.US', timeframe = '1D' }: ChartPanelP
             onChange={(e) => window.dispatchEvent(new CustomEvent('chart-symbol-change', { detail: e.target.value }))}
             className="px-2 py-1 bg-base-800 border border-base-700 rounded text-sm text-base-100 bg-base-800"
           >
-            <option value="AAPL.US">AAPL.US</option>
-            <option value="MSFT.US">MSFT.US</option>
-            <option value="GOOGL.US">GOOGL.US</option>
-            <option value="AMZN.US">AMZN.US</option>
-            <option value="TSLA.US">TSLA.US</option>
-            <option value="NVDA.US">NVDA.US</option>
-            <option value="META.US">META.US</option>
+            <option value="AAPL">AAPL</option>
+            <option value="MSFT">MSFT</option>
+            <option value="GOOGL">GOOGL</option>
+            <option value="AMZN">AMZN</option>
+            <option value="TSLA">TSLA</option>
+            <option value="NVDA">NVDA</option>
+            <option value="META">META</option>
           </select>
           <select
             value={timeframe}

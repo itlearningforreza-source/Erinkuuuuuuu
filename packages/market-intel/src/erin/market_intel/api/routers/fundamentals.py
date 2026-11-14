@@ -10,7 +10,7 @@ from datetime import datetime, date
 from decimal import Decimal
 
 
-router = APIRouter(prefix="/fundamentals", tags=["Fundamentals"])
+router = APIRouter(tags=["Fundamentals"])
 
 
 @router.get("/company/{symbol}")

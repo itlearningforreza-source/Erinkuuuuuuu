@@ -65,8 +65,8 @@ class SQLiteStorage:
                     hash TEXT NOT NULL,
                     FOREIGN KEY (user_id) REFERENCES users(id)
                 );
-                CREATE INDEX idx_audit_user_time ON audit_events(user_id, timestamp DESC);
-                CREATE INDEX idx_audit_resource ON audit_events(resource_type, resource_id);
+                CREATE INDEX IF NOT EXISTS idx_audit_user_time ON audit_events(user_id, timestamp DESC);
+                CREATE INDEX IF NOT EXISTS idx_audit_resource ON audit_events(resource_type, resource_id);
 
                 -- Instrument Master
                 CREATE TABLE IF NOT EXISTS instruments (
@@ -85,9 +85,9 @@ class SQLiteStorage:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-                CREATE INDEX idx_instruments_ticker ON instruments(composite_ticker);
-                CREATE INDEX idx_instruments_asset_class ON instruments(asset_class);
-                CREATE INDEX idx_instruments_exchange ON instruments(primary_exchange);
+                CREATE INDEX IF NOT EXISTS idx_instruments_ticker ON instruments(composite_ticker);
+                CREATE INDEX IF NOT EXISTS idx_instruments_asset_class ON instruments(asset_class);
+                CREATE INDEX IF NOT EXISTS idx_instruments_exchange ON instruments(primary_exchange);
 
                 -- Instrument Aliases (provider-specific symbols)
                 CREATE TABLE IF NOT EXISTS instrument_aliases (
@@ -101,7 +101,7 @@ class SQLiteStorage:
                     FOREIGN KEY (figi) REFERENCES instruments(figi),
                     UNIQUE(provider, provider_symbol, valid_from)
                 );
-                CREATE INDEX idx_aliases_provider_symbol ON instrument_aliases(provider, provider_symbol);
+                CREATE INDEX IF NOT EXISTS idx_aliases_provider_symbol ON instrument_aliases(provider, provider_symbol);
 
                 -- Watchlists
                 CREATE TABLE IF NOT EXISTS watchlists (
@@ -113,7 +113,7 @@ class SQLiteStorage:
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY (user_id) REFERENCES users(id)
                 );
-                CREATE INDEX idx_watchlists_user ON watchlists(user_id);
+                CREATE INDEX IF NOT EXISTS idx_watchlists_user ON watchlists(user_id);
 
                 -- Market Calendar
                 CREATE TABLE IF NOT EXISTS market_calendars (
@@ -156,8 +156,8 @@ class SQLiteStorage:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY (provider) REFERENCES providers(id)
                 );
-                CREATE INDEX idx_ingestion_provider_dataset ON ingestion_jobs(provider, dataset);
-                CREATE INDEX idx_ingestion_status ON ingestion_jobs(status);
+                CREATE INDEX IF NOT EXISTS idx_ingestion_provider_dataset ON ingestion_jobs(provider, dataset);
+                CREATE INDEX IF NOT EXISTS idx_ingestion_status ON ingestion_jobs(status);
 
                 -- Data Quality Reports
                 CREATE TABLE IF NOT EXISTS data_quality_reports (
@@ -190,8 +190,8 @@ class SQLiteStorage:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-                CREATE INDEX idx_companies_cik ON companies(cik);
-                CREATE INDEX idx_companies_ticker ON companies(tickers);
+                CREATE INDEX IF NOT EXISTS idx_companies_cik ON companies(cik);
+                CREATE INDEX IF NOT EXISTS idx_companies_ticker ON companies(tickers);
 
                 -- Financial Statements
                 CREATE TABLE IF NOT EXISTS financial_statements (
@@ -212,8 +212,8 @@ class SQLiteStorage:
                     FOREIGN KEY (company_id) REFERENCES companies(id),
                     UNIQUE(company_id, statement_type, period_type, period_end, gaap)
                 );
-                CREATE INDEX idx_financials_company_period ON financial_statements(company_id, period_end DESC);
-                CREATE INDEX idx_financials_filing_date ON financial_statements(filing_date DESC);
+                CREATE INDEX IF NOT EXISTS idx_financials_company_period ON financial_statements(company_id, period_end DESC);
+                CREATE INDEX IF NOT EXISTS idx_financials_filing_date ON financial_statements(filing_date DESC);
 
                 -- Financial Ratios (Derived)
                 CREATE TABLE IF NOT EXISTS financial_ratios (
@@ -255,7 +255,7 @@ class SQLiteStorage:
                     FOREIGN KEY (figi) REFERENCES instruments(figi),
                     UNIQUE(portfolio_id, figi)
                 );
-                CREATE INDEX idx_positions_portfolio ON positions(portfolio_id);
+                CREATE INDEX IF NOT EXISTS idx_positions_portfolio ON positions(portfolio_id);
 
                 -- Cash Balances
                 CREATE TABLE IF NOT EXISTS cash_balances (
@@ -289,8 +289,8 @@ class SQLiteStorage:
                     FOREIGN KEY (portfolio_id) REFERENCES portfolios(id),
                     FOREIGN KEY (figi) REFERENCES instruments(figi)
                 );
-                CREATE INDEX idx_transactions_portfolio_time ON transactions(portfolio_id, executed_at DESC);
-                CREATE INDEX idx_transactions_figi_time ON transactions(figi, executed_at DESC);
+                CREATE INDEX IF NOT EXISTS idx_transactions_portfolio_time ON transactions(portfolio_id, executed_at DESC);
+                CREATE INDEX IF NOT EXISTS idx_transactions_figi_time ON transactions(figi, executed_at DESC);
 
                 -- VaR Models
                 CREATE TABLE IF NOT EXISTS var_models (
@@ -327,7 +327,7 @@ class SQLiteStorage:
                     FOREIGN KEY (model_id) REFERENCES var_models(id),
                     FOREIGN KEY (portfolio_id) REFERENCES portfolios(id)
                 );
-                CREATE INDEX idx_var_results_portfolio_date ON var_results(portfolio_id, as_of_date DESC);
+                CREATE INDEX IF NOT EXISTS idx_var_results_portfolio_date ON var_results(portfolio_id, as_of_date DESC);
 
                 -- Bonds
                 CREATE TABLE IF NOT EXISTS bonds (
@@ -365,7 +365,7 @@ class SQLiteStorage:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     UNIQUE(curve_type, currency, reference_date)
                 );
-                CREATE INDEX idx_curves_currency_date ON yield_curves(currency, reference_date DESC);
+                CREATE INDEX IF NOT EXISTS idx_curves_currency_date ON yield_curves(currency, reference_date DESC);
 
                 -- Options
                 CREATE TABLE IF NOT EXISTS options (
@@ -382,8 +382,8 @@ class SQLiteStorage:
                     FOREIGN KEY (figi) REFERENCES instruments(figi),
                     FOREIGN KEY (underlying_figi) REFERENCES instruments(figi)
                 );
-                CREATE INDEX idx_options_underlying ON options(underlying_figi);
-                CREATE INDEX idx_options_expiration ON options(expiration);
+                CREATE INDEX IF NOT EXISTS idx_options_underlying ON options(underlying_figi);
+                CREATE INDEX IF NOT EXISTS idx_options_expiration ON options(expiration);
 
                 -- Volatility Surfaces
                 CREATE TABLE IF NOT EXISTS volatility_surfaces (
@@ -434,7 +434,7 @@ class SQLiteStorage:
                     FOREIGN KEY (indicator_id) REFERENCES economic_indicators(id),
                     UNIQUE(indicator_id, period, revision)
                 );
-                CREATE INDEX idx_obs_indicator_period ON indicator_observations(indicator_id, period DESC);
+                CREATE INDEX IF NOT EXISTS idx_obs_indicator_period ON indicator_observations(indicator_id, period DESC);
 
                 -- News Articles
                 CREATE TABLE IF NOT EXISTS news_articles (
@@ -454,9 +454,9 @@ class SQLiteStorage:
                     relevance_scores TEXT,
                     FOREIGN KEY (source) REFERENCES providers(id)
                 );
-                CREATE INDEX idx_news_published ON news_articles(published_at DESC);
-                CREATE INDEX idx_news_source ON news_articles(source);
-                CREATE INDEX idx_news_sentiment ON news_articles(sentiment_score);
+                CREATE INDEX IF NOT EXISTS idx_news_published ON news_articles(published_at DESC);
+                CREATE INDEX IF NOT EXISTS idx_news_source ON news_articles(source);
+                CREATE INDEX IF NOT EXISTS idx_news_sentiment ON news_articles(sentiment_score);
 
                 -- Research Notebooks
                 CREATE TABLE IF NOT EXISTS notebooks (
@@ -472,7 +472,7 @@ class SQLiteStorage:
                     last_executed_at TIMESTAMP,
                     FOREIGN KEY (user_id) REFERENCES users(id)
                 );
-                CREATE INDEX idx_notebooks_user ON notebooks(user_id);
+                CREATE INDEX IF NOT EXISTS idx_notebooks_user ON notebooks(user_id);
 
                 -- Workspaces
                 CREATE TABLE IF NOT EXISTS workspaces (
@@ -525,8 +525,8 @@ class SQLiteStorage:
                     FOREIGN KEY (user_id) REFERENCES users(id),
                     FOREIGN KEY (tool_name, tool_version) REFERENCES tool_definitions(name, version)
                 );
-                CREATE INDEX idx_tool_calls_session ON tool_calls(session_id);
-                CREATE INDEX idx_tool_calls_user_time ON tool_calls(user_id, started_at DESC);
+                CREATE INDEX IF NOT EXISTS idx_tool_calls_session ON tool_calls(session_id);
+                CREATE INDEX IF NOT EXISTS idx_tool_calls_user_time ON tool_calls(user_id, started_at DESC);
 
                 -- Data Licenses
                 CREATE TABLE IF NOT EXISTS data_licenses (
@@ -751,7 +751,7 @@ class SQLiteStorage:
             conn.execute(
                 """INSERT INTO watchlists (id, user_id, name, symbols, created_at, updated_at)
                    VALUES (?, ?, ?, ?, ?, ?)""",
-                (str(uuid.uuid4()), user_id, name, json.dumps(symbols or []), 
+                (watchlist_id, user_id, name, json.dumps(symbols or []),
                  datetime.utcnow().isoformat(), datetime.utcnow().isoformat())
             )
         return watchlist_id
@@ -853,7 +853,7 @@ class SQLiteStorage:
         with self.get_connection() as conn:
             row = conn.execute(
                 "SELECT * FROM watchlists WHERE id = ? AND user_id = ?",
-                (watchlist_id, current_user_id)
+                (watchlist_id, user_id)
             ).fetchone()
             if not row:
                 return None

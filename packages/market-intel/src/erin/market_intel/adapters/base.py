@@ -101,62 +101,7 @@ class MarketDataProvider(ABC):
         """Get market calendar."""
         pass
     
-    @abstractmethod
-    async def subscribe_quotes(
-        self,
-        symbols: List[str],
-        callback: callable
-    ) -> AsyncIterator[Quote]:
-        """Subscribe to real-time quotes."""
-        pass
-    
-    @abstractmethod
-    async def unsubscribe_quotes(self, symbols: List[str]) -> None:
-        """Unsubscribe from quotes."""
-        pass
-    
-    @property
-    @abstractmethod
-    def supports_real_time(self) -> bool:
-        """Whether provider supports real-time streaming."""
-        pass
-    
-    @property
-    @abstractmethod
-    def requires_api_key(self) -> bool:
-        """Whether provider requires API key."""
-        pass
-    
-    @abstractmethod
-    async def get_quotes(
-        self,
-        symbols: List[str],
-        fields: Optional[List[str]] = None
-    ) -> Dict[str, Quote]:
-        """Get quotes for multiple symbols."""
-        pass
-    
-    @abstractmethod
-    async def get_history(
-        self,
-        symbol: str,
-        start: datetime,
-        end: datetime,
-        frequency: DataFrequency = DataFrequency.DAY,
-        adjustment: str = "none"
-    ) -> List[Bar]:
-        """Get historical data for a symbol."""
-        pass
-    
-    @abstractmethod
-    async def get_calendar(
-        self,
-        exchange: str,
-        year: int
-    ) -> MarketCalendar:
-        """Get market calendar for exchange."""
-        pass
-    
+    # These have default implementations - subclasses can override if needed
     def supports_real_time(self) -> bool:
         """Whether provider supports real-time streaming."""
         return False
@@ -164,39 +109,6 @@ class MarketDataProvider(ABC):
     def requires_api_key(self) -> bool:
         """Whether provider requires API key."""
         return True
-    
-    async def get_quotes(
-        self,
-        symbols: List[str],
-        fields: Optional[List[str]] = None
-    ) -> Dict[str, Quote]:
-        """Get quotes for multiple symbols."""
-        return {}
-    
-    async def get_history(
-        self,
-        symbol: str,
-        start: datetime,
-        end: datetime,
-        frequency: DataFrequency = DataFrequency.DAY,
-        adjustment: str = "none"
-    ) -> List[Bar]:
-        """Get historical data for a symbol."""
-        return []
-    
-    async def get_calendar(
-        self,
-        exchange: str,
-        year: int
-    ) -> MarketCalendar:
-        """Get market calendar."""
-        return MarketCalendar(
-            exchange=exchange,
-            year=year,
-            trading_days=[],
-            holidays=[],
-            early_closes=[]
-        )
     
     async def subscribe_quotes(
         self,

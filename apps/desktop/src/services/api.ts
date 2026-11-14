@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+// Use relative URLs to go through Vite proxy in development
+// In production, this would be set via environment variable
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 class ApiClient {
   private client: AxiosInstance;
@@ -116,7 +118,7 @@ class ApiClient {
     const params = new URLSearchParams();
     params.append('symbols', symbols.join(','));
     if (fields) params.append('fields', fields.join(','));
-    const response = await this.client.get(`/api/v1/quotes?${params.toString()}`);
+    const response = await this.client.get(`/api/v1/market-data/quotes?${params.toString()}`);
     return response.data;
   }
 
@@ -127,7 +129,7 @@ class ApiClient {
       interval,
     });
     if (adjustment) params.append('adjustment', adjustment);
-    const response = await this.client.get(`/api/v1/quotes/${symbol}/history?${params.toString()}`);
+    const response = await this.client.get(`/api/v1/market-data/quotes/${symbol}/history?${params.toString()}`);
     return response.data;
   }
 

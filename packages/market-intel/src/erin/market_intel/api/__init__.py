@@ -1,6 +1,6 @@
 """ERIN Market Intelligence - API Module."""
 
-from erin.market_intel.api.main import app
+from erin.market_intel.api.main import app, create_app
 from erin.market_intel.api.routers import (
     market_data,
     instruments,
@@ -16,6 +16,7 @@ from erin.market_intel.api.routers import (
 
 __all__ = [
     "app",
+    "create_app",
     "market_data",
     "instruments",
     "watchlists",

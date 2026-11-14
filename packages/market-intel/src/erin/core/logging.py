@@ -133,7 +133,7 @@ class JsonFormatter(logging.Formatter):
                 "processName", "process", "message", "exc_info", "exc_text",
                 "stack_info", "msg"
             ]:
-                log_entry[key] = value
+                log_data[key] = value
         
         return json.dumps(log_data, default=str)
 

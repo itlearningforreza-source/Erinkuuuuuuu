@@ -6,6 +6,10 @@ from decimal import Decimal
 
 from erin.api.core.database import get_sqlite_db, sqlite_transaction
 from erin.api.models import NotebookResponse, NotebookBase, NotebookCell, KernelSpec
+import json
+import secrets
+from erin.api.routers.auth import get_current_user
+from typing import Optional
 
 router = APIRouter(prefix="/api/v1/workspace", tags=["workspace"])
 
@@ -222,4 +226,3 @@ async def update_workspace(
         ws["notebook_ids"] = json.loads(ws["notebook_ids"])
         return WorkspaceResponse(**ws)
 
-import json

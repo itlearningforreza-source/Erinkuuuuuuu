@@ -10,7 +10,7 @@ from datetime import datetime
 from decimal import Decimal
 
 
-router = APIRouter(prefix="/analytics", tags=["Analytics"])
+router = APIRouter(tags=["Analytics"])
 
 
 @router.get("/factor-exposure/{portfolio_id}")
